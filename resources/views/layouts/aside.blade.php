@@ -9,8 +9,8 @@
                                     <div class="post">
                                         <figure class="post-thumb"><a href="blog-details.html">
                                                 <img src="{{ asset(Auth::user()->photo) }}" alt=""></a></figure>
-                                        <h5><a href="blog-details.html">Kazi Ariyan </a></h5>
-                                        <p>user@gmail.com </p>
+                                        <h5><a href="blog-details.html">{{ Auth::user()->name }} </a></h5>
+                                        <p>{{ Auth::user()->email }}</p>
                                     </div>
                                 </div>
                             </div>

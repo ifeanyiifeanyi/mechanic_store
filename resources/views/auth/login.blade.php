@@ -62,7 +62,15 @@
                     </div>
                 </form>
 
-
+                <div class="social-auth-links text-center mb-3">
+                    <p>- OR -</p>
+                    <a href="/auth/github/redirect" class="btn btn-block btn-secondary">
+                        <i class="fab fa-github mr-2"></i> Sign in using Github
+                    </a>
+                    <a href="/auth/google/redirect" class="btn btn-block btn-danger">
+                        <i class="fab fa-google mr-2"></i> Sign in using Google
+                    </a>
+                </div>
                 <p class="mb-1">
                     @if (Route::has('password.request'))
                         <a href="{{ route('password.request') }}">I forgot my password</a>

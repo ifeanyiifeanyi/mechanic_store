@@ -3,7 +3,9 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Agent\AgentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SocialAuth\ProviderController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +21,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+// Socialite Login
+Route::controller(ProviderController::class)->group(function(){
+    Route::get('/auth/{provider}/redirect', 'redirect');
+    Route::get('/auth/{provider}/callback', 'callback');
+});
+ 
 
 Route::get('/dashboard', function () {
     return view('dashboard');
