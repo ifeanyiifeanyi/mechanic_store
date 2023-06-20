@@ -16,16 +16,7 @@
 
                     <div class="lower-content">
                         <h3>Including Animation In Your Design System.</h3>
-                        <ul class="post-info clearfix">
-                            <li class="author-box">
-                                <figure class="author-thumb"><img src="assets/images/news/author-1.jpg" alt="">
-                                </figure>
-                                <h5><a href="blog-details.html">Eva Green</a></h5>
-                            </li>
-                            <li>April 10, 2020</li>
-                        </ul>
-
-
+                    
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="card-body" style="background-color: #1baf65;">

@@ -1,0 +1,29 @@
+@extends('layouts.app')
+
+
+@section('title', 'Dashboard')
+
+@section('css')
+
+@endsection
+
+@section('user')
+
+    <div class="col-lg-8 col-md-12 col-sm-12 content-side">
+        <div class="blog-details-content">
+            <div class="news-block-one">
+                <div class="inner-box">
+                    <div class="lower-content">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+@endsection
+
+@section('js')
+
+@endsection

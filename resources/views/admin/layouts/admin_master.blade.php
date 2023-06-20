@@ -89,6 +89,7 @@
   <script src="{{ asset('admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
   <script src="{{ asset('admin/plugins/toastr/toastr.min.js') }}"></script>
 <script>
+
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,

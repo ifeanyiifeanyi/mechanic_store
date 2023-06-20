@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Agent\AgentController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SocialAuth\ProviderController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Agent\AgentController;
+use App\Http\Controllers\SocialAuth\ProviderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,14 +32,21 @@ Route::controller(ProviderController::class)->group(function(){
  
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('user.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+Route::prefix('user')->controller(UserController::class)->group(function(){
+    Route::middleware(['auth', 'verified', 'role:user'])->group(function(){
+        Route::get('profile', 'show')->name('user.profile');
+        Route::put('profile', 'update')->name('user.profile.update');
+    });
 });
+// Route::prefix('user')->middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 require __DIR__ . '/auth.php';
 
