@@ -70,6 +70,9 @@
                     <a href="/auth/google/redirect" class="btn btn-block btn-danger">
                         <i class="fab fa-google mr-2"></i> Sign in using Google
                     </a>
+                    <a href="/auth/facebook/redirect" class="btn btn-block btn-primary">
+                        <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+                    </a>
                 </div>
                 <p class="mb-1">
                     @if (Route::has('password.request'))
