@@ -2,6 +2,7 @@
     $route = Route::current()->getName();
     
 @endphp
+{{-- @dd($route) --}}
 <style>
     .active-bar {
         background-image: url('https://img.freepik.com/free-vector/gradient-dynamic-purple-lines-background_23-2148995757.jpg');
@@ -21,7 +22,7 @@
                     <figure class="post-thumb"><a href="{{route('dashboard')}}">
                             <img src="{{ !empty(Auth::user()->photo) ? asset(Auth::user()->photo) : asset('https://placehold.jp/30/dd6699/ffffff/300x150.png?text=' . Auth::user()->name) }}"
                                 alt=""></a></figure>
-                    <h5><a href="{{route('user.profile')}}">{{ Auth::user()->name }} </a></h5>
+                    <h5><a href="{{ route('user.profile.show') }}">{{ Auth::user()->name }} </a></h5>
                     <p>{{ Auth::user()->email }}</p>
                     <small class="text-info">{{ Auth::user()->username }}</small>
                 </div>
@@ -36,9 +37,8 @@
                     <li class="{{ $route == 'dashboard' ? 'active-bar' : '' }}"> <a href="{{ route('dashboard') }}"><i
                                 class="fab fa fa-envelope "></i>
                             Dashboard </a></li>
-                    <li class="{{ $route == 'user.profile' ? 'active-bar' : '' }}"><a
-                            href="{{ route('user.profile') }}"><i class="fa fa-cog" aria-hidden="true"></i>
-                            Settings</a></li>
+                    <li class="{{ $route == 'user.profile.show' ? 'active-bar' : '' }}"><a
+                            href="{{ route('user.profile.show') }}"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a></li>
                     <li><a href="blog-details.html"><i class="fa fa-credit-card" aria-hidden="true"></i> Buy
                             credits<span class="badge badge-info">( 10 credits)</span></a></li>
                     <li><a href="blog-details.html"><i class="fa fa-list-alt" aria-hidden="true"></i></i> Properties
@@ -47,7 +47,7 @@
                     </li>
                     <li><a href="blog-details.html"><i class="fa fa-key" aria-hidden="true"></i>
                             Security </a></li>
-                    <li class="bg-danger"><a href="blog-details.html"><i class="fa fa-chevron-circle-up" aria-hidden="true"></i> Logout
+                    <li class="bg-danger text-light"><a href="{{route('user.profile.logout')}}"><i class="fa fa-chevron-circle-up text-light" aria-hidden="true"></i> Logout
                         </a></li>
                 </ul>
             </div>

@@ -13,6 +13,21 @@
         <div class="blog-details-content">
             <div class="news-block-one">
                 <div class="inner-box">
+<p>Last Login Date and Time: {{ $user->getLastLoginDateTime() }}</p>
+<h2>Device Information</h2>
+
+<p>Device: {{ $deviceInformation['device'] }}</p>
+<p>Platform: {{ $deviceInformation['platform'] }}</p>
+<p>Browser: {{ $deviceInformation['browser'] }}</p>
+@if($userLocation)
+    <h1>User Location</h1>
+    <p>IP: {{ $userLocation->ip }}</p>
+    <p>Country: {{ $userLocation->country_name }}</p>
+    <p>City: {{ $userLocation->city_name }}</p>
+    <!-- Display other location properties as needed -->
+@else
+    <p>No location data available.</p>
+@endif
 
                     <div class="lower-content">
                         <h3>Including Animation In Your Design System.</h3>

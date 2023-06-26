@@ -4,7 +4,18 @@
 @section('title', 'Profile Page')
 
 @section('css')
-
+<style>
+input{
+    font-weight:900 !important;
+}
+label{
+    color: teal !important;
+    
+}
+input[type="text"], input[type="email"], textarea, select {
+  font-family: "Open Sans", Arial, sans-serif !important;
+}
+</style>
 @endsection
 
 @section('user')
@@ -14,6 +25,9 @@
             <div class="news-block-one">
                 <div class="inner-box">
                     <div class="lower-content">
+                        <center>
+                    <a href="" class="btn btn-outline-info btn-lg shadow" data-toggle="modal" data-target="#exampleModalCenter"><span class=" badge badge-info"><i class="fas fa-location fa-pulse"></i></span> My Location</a>
+                        </center>
                         <form action="{{ route('user.profile.update') }}" method="post" class="default-form" enctype="multipart/form-data">
                         @csrf
                         @method('put')
@@ -88,12 +102,73 @@
         </div>
     </div>
 
-
+<!-- Modal -->
+<div class="modal shadow fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Current Location <i class="fas fa-location-circle fa-spin"></i>
+<hr>
+        <pre class="text-info text-sm">{{ $user->userLocation->ip }}</pre>
+<small class="text-info text-sm">lat: {{ $user->userLocation->latitude }}</small> <br>
+        <small class="text-info text-sm">log: {{ $user->userLocation->logitude }}</small> <br>
+        
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive shadow">
+            <table class="table table-hover">
+                <tr>
+                    <th>Country</th>
+                    <td>{{ $user->userLocation->country_name }}</td>
+                </tr>
+                <tr>
+                    <th>Region</th>
+                    <td>{{ $user->userLocation->region_name }}</td>
+                </tr>
+                <tr>
+                    <th>City</th>
+                    <td>{{ $user->userLocation->city_name }}</td>
+                </tr>
+            </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href="" class="btn btn-primary"><i class="fal fa-map-marker-question"></i> Edit Location</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 @endsection
 
 @section('js')
 <script>
+const options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0,
+};
+
+function success(pos) {
+  const crd = pos.coords;
+
+  console.log("Your current position is:");
+  console.log(`Latitude : ${crd.latitude}`);
+  console.log(`Longitude: ${crd.longitude}`);
+  console.log(`More or less ${crd.accuracy} meters.`);
+}
+
+function error(err) {
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+
+navigator.geolocation.getCurrentPosition(success, error, options);
+
         document.addEventListener('DOMContentLoaded', function() {
             var imageInput = document.getElementById('image-input');
             var profileImage = document.getElementById('profile-image');

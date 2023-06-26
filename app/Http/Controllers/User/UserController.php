@@ -2,13 +2,45 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\UserLocation;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Stevebauman\Location\Facades\Location;
 
 class UserController extends Controller
 {
+    public function dashboard(Request $request)
+    {
+        $data = Location::get();
+        $user_id = Auth::user()->id;
+        $ip = $data->ip;
+    
+        $locationData = [
+            'ip' => $ip,
+            'user_id' => $user_id,
+            'country_name' => $data->countryName,
+            'country_code' => $data->countryCode,
+            'region_code' => $data->regionCode,
+            'region_name' => $data->regionName,
+            'city_name' => $data->cityName,
+            'zip_code' => $data->zipCode,
+            'latitude' => $data->latitude,
+            'logitude' => $data->longitude,
+            'area_code' => $data->areaCode,
+            'timezone' => $data->timezone,
+        ];
+    
+        $userLocation = UserLocation::updateOrCreate(['ip' => $ip], $locationData);
+    
+        $user = Auth::user();
+        $deviceInformation = $user->getDeviceInformation($request);
+    
+        return view('user.dashboard', compact('userLocation', 'user', 'deviceInformation'));
+    }
+    
     public function show()
     {
         $user = User::findOrFail(Auth::user()->id);
@@ -54,5 +86,13 @@ class UserController extends Controller
             'alert-type' => 'success',
         ];
         return redirect()->route('user.profile')->with($notification);
+    }
+    public function logout(Request $request): RedirectResponse
+    {
+        auth()->guard('web')->logout();
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+        return redirect()->route('login');
     }
 }

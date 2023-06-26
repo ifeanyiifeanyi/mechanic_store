@@ -53,10 +53,10 @@ class ProviderController extends Controller
                     'provider_token' => $social_user->token,
                 ]);
             }
-
+            $user->last_login_at = Carbon::now();
+            $user->save();
             Auth::login($user);
-                return redirect('/dashboard');
-            
+            return redirect('/dashboard');
         } catch (\Exception $e) {
             return redirect('/login');
         }

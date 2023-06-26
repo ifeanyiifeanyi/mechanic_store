@@ -4,10 +4,11 @@ namespace App\Http\Requests\Auth;
 
 use App\Models\User;
 use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
 
@@ -56,6 +57,8 @@ class LoginRequest extends FormRequest
                 'email' => trans('auth.failed'),
             ]);
         }
+        $user->last_login_at = Carbon::now();
+        $user->save();
         Auth::login($user, $this->boolean('remember'));
 
         RateLimiter::clear($this->throttleKey());
